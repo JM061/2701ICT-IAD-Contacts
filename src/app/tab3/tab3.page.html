@@ -13,5 +13,33 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+
+  <form id="week8Form">
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input name="accountName"[(ngModel)]="accountName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox name="showNotifications" [(ngModel)]="showNotifications"></ion-checkbox>
+      <ion-label>
+        Show Notifications
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date: </ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+    </ion-item>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime  id="datetime" name="reminderDate" [(ngModel)]="reminderDate"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </form>
+  <ion-button id="submitbutton" size="small" (click)="addValues()">
+    Submit
+  </ion-button>
+
+
 </ion-content>
