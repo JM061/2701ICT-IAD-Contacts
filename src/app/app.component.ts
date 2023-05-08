@@ -12,27 +12,20 @@ export class AppComponent {
 
   constructor(private storage:Storage) {}
 
-  storeInitialValues(){
-    this.storage.get('accountName').then((val)=> {
-      if (val == null){
-        this.storage.set('accountName', '')
-      }
-    });
-    this.storage.get('showNotifications').then((val)=>{
-      if (val ==null){
-        this.storage.set('showNotifications', false);
-      }
-    });
-    this.storage.get('reminderDate').then((val)=> {
-      if (val == null){
-        this.storage.set('reminderDate', new Date().toISOString());
-      }
-    });
-
-
-
-
-
+  async storeInitialValues(){
+    const accountName = await this.storage.get('accountName');
+    if (accountName == null) {
+      await this.storage.set('accountName', '');
+    }
+    const showNotifications = await this.storage.get('showNotifications');
+    if (showNotifications == null) {
+      await this.storage.set('showNotifications', false);
+    }
+    const reminderDate = await this.storage.get('reminderDate');
+    if (reminderDate == null) {
+      await this.storage.set('reminderDate', new Date().toISOString());
+    }
+  }
 
   }
 
@@ -49,5 +42,5 @@ export class AppComponent {
 
 
 
-}
+
 

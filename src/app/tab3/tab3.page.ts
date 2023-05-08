@@ -12,32 +12,23 @@ export class Tab3Page {
   reminderDate: string;
 
   constructor(private storage: Storage) {
-    this.storage.create();
+    this.storage.create();//creates storage
+    this.getReminderValues();
   }
 
-  getReminderValues() {
-    this.storage.get('accountName').then((val) => {
-      this.accountName = val;
-    });
-    this.storage.get('showNotifications').then((val) => {
-      this.showNotifications = val;
-    });
-    this.storage.get('reminderDate').then((val) => {
-      this.reminderDate = val;
-    });
+  //gets the values from the user inputs
+  async getReminderValues() {
+    this.accountName = await this.storage.get('accountName') || '';
+    this.showNotifications = await this.storage.get('showNotifications') || false;
+    this.reminderDate = await this.storage.get('reminderDate') ||new Date().toISOString();
+
   }
 
-  addValues() {
-    this.storage.set('accountName', this.accountName);
-    this.storage.set('showNotifications', this.showNotifications);
-    this.storage.set('reminderDate', this.reminderDate);
-    console.log(
-      'Account name:',
-      this.accountName,
-      'Notifications?',
-      this.showNotifications,
-      'Date of Reminder:',
-      this.reminderDate
-    );
+  //adds the values from the user input to the ionic storage module
+  async addValues() {
+    await this.storage.set('accountName', this.accountName);
+    await this.storage.set('showNotifications', this.showNotifications);
+    await this.storage.set('reminderDate', this.reminderDate);
   }
+
 }
